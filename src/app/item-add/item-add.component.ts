@@ -1,31 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
+
 @Component({
   selector: 'app-item-add',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, ModalModule],
   templateUrl: './item-add.component.html',
   styleUrls: ['./item-add.component.css'],
 })
 export class ItemAddComponent implements OnInit {
   itemForm;
   numberOfItems = 0;
+  list: any[] = [];
+  public event: EventEmitter<any> = new EventEmitter();
+  constructor(
+    private formBuilder: FormBuilder,
+    public bsModalRef: BsModalRef
+  ) {}
 
-  constructor(private formBuilder: FormBuilder) {
+  ngOnInit() {
     this.itemForm = this.formBuilder.group({
       name: '',
     });
+    console.log(this.list);
   }
 
-  ngOnInit() {}
+  saveToList(form) {
+    if (form.value) {
+      this.triggerEvent(form.value.name);
+      this.bsModalRef.hide();
+    }
+  }
 
-  saveToList(itemForm) {
-    console.log(itemForm.value);
+  triggerEvent(item: string) {
+    this.event.emit({ data: item, res: 200 });
   }
 }

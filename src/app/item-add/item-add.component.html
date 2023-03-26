@@ -2,14 +2,14 @@
   <h4>Add Item</h4>
   <form [formGroup]="itemForm" (ngSubmit)="saveToList(itemForm)">
     <div class="col-md-6">
-      <label>Number Of Items: </label> {{ numberOfItems }}
+      <label>Number of Items : </label> {{ list[0].value }}
     </div>
     <div class="col-md-6">
       <label>Item Name</label>
     </div>
     <div class="col-md-6">
       <input type="text" class="form-control" formControlName="name" />
-      <button class="button mt-1" type="submit"></button>
+      <button class="button mt-1" type="submit">Save</button>
     </div>
   </form>
 </div>

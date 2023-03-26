@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { ItemListComponent } from './item-list/item-list.component';
+import { ItemAddComponent } from './item-add/item-add.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule, ItemListComponent],
+  imports: [CommonModule, ItemListComponent, ItemAddComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
