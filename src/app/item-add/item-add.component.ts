@@ -1,12 +1,12 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-item-add',
   standalone: true,
-  imports: [CommonModule, ModalModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './item-add.component.html',
   styleUrls: ['./item-add.component.css'],
 })
@@ -15,10 +15,7 @@ export class ItemAddComponent implements OnInit {
   numberOfItems = 0;
   list: any[] = [];
   public event: EventEmitter<any> = new EventEmitter();
-  constructor(
-    private formBuilder: FormBuilder,
-    public bsModalRef: BsModalRef
-  ) {}
+  constructor(private formBuilder: FormBuilder, public modalRef: BsModalRef) {}
 
   ngOnInit() {
     this.itemForm = this.formBuilder.group({
@@ -30,11 +27,15 @@ export class ItemAddComponent implements OnInit {
   saveToList(form) {
     if (form.value) {
       this.triggerEvent(form.value.name);
-      this.bsModalRef.hide();
+      this.modalRef.hide();
     }
   }
 
   triggerEvent(item: string) {
     this.event.emit({ data: item, res: 200 });
+  }
+
+  close() {
+    this.modalRef.hide();
   }
 }
